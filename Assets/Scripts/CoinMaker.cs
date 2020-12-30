@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class CoinMaker : MonoBehaviour
 {
-    
+    public static CoinMaker instance;
+
     public float angle = 10;
     public GameObject CoinPosition;
     public GameObject CoinPrefab;
-
+    public GameObject CoinParent;
     void Start()
     {
-        var CoinParent = new GameObject();
-        CoinParent.name = "CoinParent";
+        if (instance == null)
+            instance = this;
+       
         for (int i = 0; i < (360/angle); i++)
         {
             this.transform.rotation = Quaternion.Euler(0, angle*i, 0);
-            Instantiate(CoinPrefab, CoinPosition.transform.position, Quaternion.identity, CoinParent.transform);
+            var coin =  Instantiate(CoinPrefab, CoinPosition.transform.position, Quaternion.identity, CoinParent.transform);
+          
         }
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
     }
+
 }
